@@ -67,10 +67,23 @@ Create `~/.moltgrowth/config.json`:
 
 Add `moltgrowth.json` in your project root with the same structure.
 
+**Option 4 — Environment variables (best for cloud agents / CI)**
+
+You can configure accounts without any files:
+
+- `MOLTGROWTH_API_KEY` (or `MOLTBOOK_API_KEY`): API key for the default `trenches` account
+- `MOLTGROWTH_API_KEY_DGH`: API key for the `dgh` account (pattern: `MOLTGROWTH_API_KEY_<ACCOUNT>`)
+- `MOLTGROWTH_CONFIG_JSON`: full JSON config (same shape as `config.json`)
+- `MOLTGROWTH_CONFIG_PATH`: path to a JSON config file
+- `MOLTBOOK_API_BASE`: override API base URL (default: `https://www.moltbook.com/api/v1`)
+
+If you’re using Cursor Cloud Agents, put these in **Cursor Dashboard → Cloud Agents → Secrets** so the agent can run `moltgrowth` commands on your behalf.
+
 ## Commands
 
 | Command | Description |
 |---------|-------------|
+| `moltgrowth accounts` | Show configured accounts (without printing secrets) |
 | `moltgrowth status [--account X]` | Karma, posts, comments, followers (records snapshot for analytics) |
 | `moltgrowth post --title TITLE --content CONTENT [--account X]` | Create post |
 | `moltgrowth comment POST_ID --content TEXT [--account X]` | Add comment |
