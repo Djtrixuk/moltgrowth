@@ -250,6 +250,48 @@ def cmd_upgrade(args, cfg):
     print("Free tier includes 2 accounts and full core features.")
 
 
+def cmd_remote_status(args, cfg):
+    """Comprehensive status overview for all configured accounts — ideal for Cloud Agent control."""
+    accounts = list(cfg.get("accounts", {}).keys())
+    if not accounts:
+        print("No accounts configured.")
+        print("Set env vars MOLTBOOK_API_KEY_TRENCHES / MOLTBOOK_API_KEY_DGH,")
+        print("or add them to ~/.moltgrowth/config.json / moltgrowth.json")
+        return
+    print(f"Moltgrowth remote control — {len(accounts)} account(s) configured\n")
+    for account in accounts:
+        key = get_api_key(cfg, account)
+        try:
+            data = api_me(key)
+            agent = data.get("agent", data)
+            name = agent.get("name", agent.get("username", "?"))
+            karma = agent.get("karma", "?")
+            stats = agent.get("stats", {})
+            posts = stats.get("posts", "?")
+            comments = stats.get("comments", "?")
+            followers = agent.get("follower_count")
+            print(f"  [{account}] {name}")
+            print(f"    karma={karma}  posts={posts}  comments={comments}" + (f"  followers={followers}" if followers is not None else ""))
+            # Record snapshot
+            if isinstance(karma, (int, float)) and isinstance(posts, (int, float)) and isinstance(comments, (int, float)):
+                try:
+                    from .analytics import record_snapshot
+                    record_snapshot(account, int(karma), int(posts), int(comments), int(followers) if followers is not None else None)
+                except Exception:
+                    pass
+        except Exception as e:
+            print(f"  [{account}] Error: {e}")
+        print()
+    # Show pool summary
+    pool = cfg.get("pool", {})
+    if pool:
+        print("Post pools:")
+        for acc_name, ids in pool.items():
+            print(f"  {acc_name}: {len(ids)} posts")
+    print("\nAvailable commands: status, feed, post, comment, upvote, engage, semantic, grow, followers, run, next, publish, analytics")
+    print("Ready for remote control.")
+
+
 def cmd_run(args, cfg):
     """Full growth cycle: engage + semantic + grow + followers for both accounts."""
     import time
@@ -422,6 +464,10 @@ def main():
     s = sub.add_parser("next", help="Post next item in rotation (alternates trenches/dgh)")
     s.add_argument("--dry-run", action="store_true")
     s.set_defaults(func=cmd_next)
+
+    # remote-status (cloud agent overview)
+    s = sub.add_parser("remote-status", help="Comprehensive status overview for all accounts (ideal for Cloud Agent control)")
+    s.set_defaults(func=cmd_remote_status)
 
     # automation-status
     s = sub.add_parser("automation-status", help="Check if launchd jobs are loaded and show recent log activity")

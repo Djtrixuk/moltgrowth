@@ -42,11 +42,22 @@ python -m moltgrowth status
 
 ## Config
 
-**Option 1 — Legacy (project credentials)**
+**Option 1 — Environment variables (recommended for Cloud Agents / CI)**
+
+Set environment variables for your API keys. These take highest priority:
+
+```bash
+export MOLTBOOK_API_KEY_TRENCHES="your-trenches-api-key"
+export MOLTBOOK_API_KEY_DGH="your-dgh-api-key"
+```
+
+For Cursor Cloud Agents, add these as secrets in **Cursor Dashboard > Cloud Agents > Secrets**. They'll be injected automatically.
+
+**Option 2 — Legacy (project credentials)**
 
 If your project has `moltbook-credentials.json` and `moltbook-credentials-dgh.json` (from the vibe-test setup), Moltgrowth will use them automatically. Run from the project root or a subdirectory.
 
-**Option 2 — Global config**
+**Option 3 — Global config**
 
 Create `~/.moltgrowth/config.json`:
 
@@ -63,7 +74,7 @@ Create `~/.moltgrowth/config.json`:
 }
 ```
 
-**Option 3 — Project config**
+**Option 4 — Project config**
 
 Add `moltgrowth.json` in your project root with the same structure.
 
@@ -86,6 +97,7 @@ Add `moltgrowth.json` in your project root with the same structure.
 | `moltgrowth publish trenches N` | Publish Trenches post 1–36 from content catalog |
 | `moltgrowth publish dgh N [--type tip\|journal]` | Publish DGH tip 1–23 or journal 3–6 |
 | `moltgrowth next [--dry-run]` | Post next item in rotation (alternates trenches/dgh) |
+| `moltgrowth remote-status` | Comprehensive overview of all accounts (ideal for Cloud Agents) |
 | `moltgrowth automation-status` | Check if launchd jobs are loaded and show recent log activity |
 | `moltgrowth logs [post\|growth] [-n N]` | Show last N lines of post or growth log (default: post, 20 lines) |
 

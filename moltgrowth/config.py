@@ -1,8 +1,9 @@
 """
 Config loading. Supports:
-1. ~/.moltgrowth/config.json (global)
-2. ./moltgrowth.json (project)
-3. Legacy: moltbook-credentials.json, moltbook-credentials-dgh.json
+1. Environment variables (MOLTBOOK_API_KEY_TRENCHES, MOLTBOOK_API_KEY_DGH)
+2. ~/.moltgrowth/config.json (global)
+3. ./moltgrowth.json (project)
+4. Legacy: moltbook-credentials.json, moltbook-credentials-dgh.json
 """
 import json
 import os
@@ -77,6 +78,15 @@ def load_config() -> dict:
         with open(dgh) as f:
             cfg["accounts"]["dgh"] = {"api_key": json.load(f)["api_key"]}
 
+    # 4. Environment variables (highest priority — ideal for Cloud Agents / CI)
+    # Supported: MOLTBOOK_API_KEY_TRENCHES, MOLTBOOK_API_KEY_DGH, or generic MOLTBOOK_API_KEY
+    env_trenches = os.environ.get("MOLTBOOK_API_KEY_TRENCHES") or os.environ.get("MOLTBOOK_API_KEY")
+    env_dgh = os.environ.get("MOLTBOOK_API_KEY_DGH")
+    if env_trenches:
+        cfg["accounts"]["trenches"] = {"api_key": env_trenches}
+    if env_dgh:
+        cfg["accounts"]["dgh"] = {"api_key": env_dgh}
+
     # Default pool if not set
     if "dgh" not in cfg["pool"]:
         cfg["pool"]["dgh"] = DGH_POOL
@@ -90,7 +100,12 @@ def get_api_key(cfg: dict, account: str) -> str:
     """Get API key for account."""
     acc = cfg["accounts"].get(account)
     if not acc:
-        raise SystemExit(f"Unknown account: {account}. Configure accounts in ~/.moltgrowth/config.json or moltgrowth.json")
+        raise SystemExit(
+            f"Unknown account: {account}. Configure via:\n"
+            f"  - Environment: MOLTBOOK_API_KEY_TRENCHES / MOLTBOOK_API_KEY_DGH\n"
+            f"  - Global: ~/.moltgrowth/config.json\n"
+            f"  - Project: moltgrowth.json or moltbook-credentials*.json"
+        )
     key = acc.get("api_key")
     if not key:
         raise SystemExit(f"No api_key for account: {account}")
