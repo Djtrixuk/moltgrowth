@@ -3,6 +3,13 @@ Config loading. Supports:
 1. ~/.moltgrowth/config.json (global)
 2. ./moltgrowth.json (project)
 3. Legacy: moltbook-credentials.json, moltbook-credentials-dgh.json
+
+Environment variable overrides (highest priority):
+- MOLTGROWTH_CONFIG_JSON: full config JSON (same shape as config.json)
+- MOLTGROWTH_CONFIG_PATH (or MOLTGROWTH_CONFIG): path to config JSON file
+- MOLTGROWTH_API_KEY or MOLTBOOK_API_KEY: default account api key (maps to "trenches")
+- MOLTGROWTH_API_KEY_<ACCOUNT>: per-account key (e.g. MOLTGROWTH_API_KEY_DGH)
+- MOLTGROWTH_<ACCOUNT>_API_KEY: per-account key (e.g. MOLTGROWTH_DGH_API_KEY)
 """
 import json
 import os
@@ -45,6 +52,78 @@ def _find_project_root() -> Path:
     return Path.cwd()
 
 
+def _deep_merge_cfg(dst: dict, src: dict) -> None:
+    """Merge src into dst (special-case accounts + pool as nested maps)."""
+    if not isinstance(src, dict):
+        return
+    # Simple keys
+    for k, v in src.items():
+        if k in ("accounts", "pool") and isinstance(v, dict):
+            continue
+        dst[k] = v
+    # Nested maps
+    if isinstance(src.get("accounts"), dict):
+        dst.setdefault("accounts", {})
+        dst["accounts"].update(src["accounts"])
+    if isinstance(src.get("pool"), dict):
+        dst.setdefault("pool", {})
+        dst["pool"].update(src["pool"])
+
+
+def _load_json_file(path: str) -> dict | None:
+    try:
+        p = Path(_expand(path))
+        if not p.exists():
+            return None
+        with open(p) as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else None
+    except Exception:
+        return None
+
+
+def _load_env_config() -> dict:
+    """Load config from env vars (supports both full JSON and per-account API keys)."""
+    cfg: dict = {"accounts": {}, "pool": {}}
+
+    # Full config JSON
+    raw = os.environ.get("MOLTGROWTH_CONFIG_JSON")
+    if raw:
+        try:
+            data = json.loads(raw)
+            if isinstance(data, dict):
+                _deep_merge_cfg(cfg, data)
+        except Exception:
+            # Ignore invalid JSON and fall back to other sources
+            pass
+
+    # Config file path from env
+    env_path = os.environ.get("MOLTGROWTH_CONFIG_PATH") or os.environ.get("MOLTGROWTH_CONFIG")
+    if env_path:
+        data = _load_json_file(env_path)
+        if data:
+            _deep_merge_cfg(cfg, data)
+
+    # Default key aliases (maps to trenches)
+    default_key = os.environ.get("MOLTGROWTH_API_KEY") or os.environ.get("MOLTBOOK_API_KEY")
+    if default_key:
+        cfg.setdefault("accounts", {}).setdefault("trenches", {})["api_key"] = default_key
+
+    # Per-account keys
+    for k, v in os.environ.items():
+        if not v:
+            continue
+        account = None
+        if k.startswith("MOLTGROWTH_API_KEY_"):
+            account = k[len("MOLTGROWTH_API_KEY_") :].strip().lower()
+        elif k.startswith("MOLTGROWTH_") and k.endswith("_API_KEY"):
+            account = k[len("MOLTGROWTH_") : -len("_API_KEY")].strip().lower()
+        if account:
+            cfg.setdefault("accounts", {}).setdefault(account, {})["api_key"] = v
+
+    return cfg
+
+
 def load_config() -> dict:
     """Load config. Merges global + project."""
     project = _find_project_root()
@@ -76,6 +155,9 @@ def load_config() -> dict:
     if dgh.exists():
         with open(dgh) as f:
             cfg["accounts"]["dgh"] = {"api_key": json.load(f)["api_key"]}
+
+    # 4. Environment overrides (highest priority)
+    _deep_merge_cfg(cfg, _load_env_config())
 
     # Default pool if not set
     if "dgh" not in cfg["pool"]:

@@ -14,9 +14,28 @@ import argparse
 import sys
 
 from . import __version__
+from .api import BASE as API_BASE
 from .api import comment as api_comment, feed as api_feed, me as api_me, post as api_post, upvote as api_upvote
 from .config import load_config, get_api_key, get_track_file
 from .engage import run_cycle
+
+
+def cmd_accounts(args, cfg):
+    """Show configured accounts (without printing secrets)."""
+    accounts = cfg.get("accounts") or {}
+    print("Accounts:")
+    if not accounts:
+        print("  (none configured)")
+    else:
+        for name in sorted(accounts.keys()):
+            has_key = bool((accounts.get(name) or {}).get("api_key"))
+            print(f"  {name}: {'✓ api_key set' if has_key else '✗ missing api_key'}")
+    print("")
+    print(f"API base: {API_BASE}")
+    if cfg.get("project_root"):
+        print(f"Project root: {cfg.get('project_root')}")
+    if cfg.get("track_dir"):
+        print(f"Track dir: {cfg.get('track_dir')}")
 
 
 def cmd_status(args, cfg):
@@ -326,6 +345,10 @@ def main():
     s = sub.add_parser("status", help="Show karma and stats")
     s.add_argument("--account", "-a", default="trenches", help="Account name")
     s.set_defaults(func=cmd_status)
+
+    # accounts
+    s = sub.add_parser("accounts", help="Show configured accounts (without printing secrets)")
+    s.set_defaults(func=cmd_accounts)
 
     # post
     s = sub.add_parser("post", help="Create post")

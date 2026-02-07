@@ -4,11 +4,12 @@ Moltbook API wrapper. Handles post, comment, upvote, me, feed.
 from __future__ import annotations
 
 import json
+import os
 import urllib.parse
 import urllib.request
 import urllib.error
 
-BASE = "https://www.moltbook.com/api/v1"
+BASE = (os.environ.get("MOLTBOOK_API_BASE") or "https://www.moltbook.com/api/v1").rstrip("/")
 
 
 def _request(method: str, path: str, api_key: str, body: dict | None = None) -> dict:
