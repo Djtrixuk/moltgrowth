@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gallery | SHELLBORN</title>
+    <meta
+      name="description"
+      content="Browse the Shellborn collection - 10,000 procedurally generated crustacean and machine NFTs."
+    />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <canvas class="bg-canvas" aria-hidden="true"></canvas>
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-prompt">
+          <span>agent</span>
+          <span class="dim">@shellborn</span>
+          <span class="faint">:</span>
+          <span class="path">~</span>
+          <span class="dim">$ cd /gallery</span>
+          <span class="blink">|</span>
+        </div>
+        <button class="nav-toggle" type="button" data-menu-toggle>[menu]</button>
+        <div class="nav-links" data-nav-links>
+          <a href="../">[mint]</a>
+          <a class="active" href="../gallery/">[gallery]</a>
+          <a href="../rarity/">[rarity]</a>
+          <a href="../about/">[about]</a>
+          <a href="../terms/">[terms]</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="panel-section">
+        <div class="container">
+          <div class="page-title">GALLERY</div>
+          <div class="page-subtitle">
+            Preview samples from the Shellborn collection. The full vault unlocks after mint.
+          </div>
+
+          <div class="filter-bar">
+            <button class="filter-button active" type="button" data-filter="all">All</button>
+            <button class="filter-button" type="button" data-filter="shallow">Shallow</button>
+            <button class="filter-button" type="button" data-filter="trench">Trench</button>
+            <button class="filter-button" type="button" data-filter="legendary">Legendary</button>
+            <button class="filter-button" type="button" data-filter="epic">Epic</button>
+            <button class="filter-button" type="button" data-filter="rare">Rare</button>
+            <button class="filter-button" type="button" data-filter="common">Common</button>
+          </div>
+
+          <div class="gallery-grid">
+            <div class="pixel-card" data-tags="shallow rare">
+              <div class="pixel-image" style="--pixel-base: #0f1a2a;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0001
+                  <span class="pixel-name">Crab - Ocean Blue Shell</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="shallow common">
+              <div class="pixel-image" style="--pixel-base: #1b1324;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0002
+                  <span class="pixel-name">Shrimp - Coral Pink</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="trench epic">
+              <div class="pixel-image" style="--pixel-base: #0a0f18;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0003
+                  <span class="pixel-name">Mantis - Obsidian Shell</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="trench legendary">
+              <div class="pixel-image" style="--pixel-base: #170a1a;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0004
+                  <span class="pixel-name">Sentinel - Terminal-Born</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="shallow epic">
+              <div class="pixel-image" style="--pixel-base: #131b1b;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0005
+                  <span class="pixel-name">Lobster - Electric Blue</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="trench rare">
+              <div class="pixel-image" style="--pixel-base: #101018;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0006
+                  <span class="pixel-name">Drone - Glitch Purple</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="shallow common">
+              <div class="pixel-image" style="--pixel-base: #142018;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0007
+                  <span class="pixel-name">Crayfish - Forest Green</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="trench epic">
+              <div class="pixel-image" style="--pixel-base: #140f20;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0008
+                  <span class="pixel-name">Walker - Chrome</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="shallow rare">
+              <div class="pixel-image" style="--pixel-base: #201412;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0009
+                  <span class="pixel-name">Anomalocaris - Burnt Orange</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="trench common">
+              <div class="pixel-image" style="--pixel-base: #0b141b;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0010
+                  <span class="pixel-name">Crab - Deep Red Shell</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="shallow legendary">
+              <div class="pixel-image" style="--pixel-base: #181a0f;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0011
+                  <span class="pixel-name">Shrimp - Toxic Green</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card" data-tags="trench rare">
+              <div class="pixel-image" style="--pixel-base: #0e0e16;"></div>
+              <div class="pixel-overlay">
+                <div class="pixel-meta">
+                  SAMPLE #0012
+                  <span class="pixel-name">Crawler - Obsidian</span>
+                </div>
+              </div>
+            </div>
+            <div class="pixel-card unminted" data-tags="common">
+              <div class="pixel-image"></div>
+              <div class="pixel-overlay">UNMINTED</div>
+            </div>
+            <div class="pixel-card unminted" data-tags="common">
+              <div class="pixel-image"></div>
+              <div class="pixel-overlay">UNMINTED</div>
+            </div>
+            <div class="pixel-card unminted" data-tags="common">
+              <div class="pixel-image"></div>
+              <div class="pixel-overlay">UNMINTED</div>
+            </div>
+            <div class="pixel-card unminted" data-tags="common">
+              <div class="pixel-image"></div>
+              <div class="pixel-overlay">UNMINTED</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">Samples are representative previews of the full collection.</footer>
+
+    <script src="../assets/app.js" defer></script>
+  </body>
+</html>

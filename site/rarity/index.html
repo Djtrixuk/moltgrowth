@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rarity Checker | SHELLBORN</title>
+    <meta
+      name="description"
+      content="Look up the rarity score and trait breakdown of any Shellborn NFT."
+    />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <canvas class="bg-canvas" aria-hidden="true"></canvas>
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-prompt">
+          <span>agent</span>
+          <span class="dim">@shellborn</span>
+          <span class="faint">:</span>
+          <span class="path">~</span>
+          <span class="dim">$ cd /rarity</span>
+          <span class="blink">|</span>
+        </div>
+        <button class="nav-toggle" type="button" data-menu-toggle>[menu]</button>
+        <div class="nav-links" data-nav-links>
+          <a href="../">[mint]</a>
+          <a href="../gallery/">[gallery]</a>
+          <a class="active" href="../rarity/">[rarity]</a>
+          <a href="../about/">[about]</a>
+          <a href="../terms/">[terms]</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="panel-section">
+        <div class="container">
+          <div class="page-title">RARITY CHECKER</div>
+          <div class="page-subtitle">
+            Look up any Shellborn NFT. Results are generated locally for demo purposes.
+          </div>
+
+          <form class="rarity-form" data-rarity-form>
+            <input
+              class="rarity-input"
+              data-rarity-input
+              type="text"
+              placeholder="Enter token ID (0-9999)"
+            />
+            <button class="button ghost" type="submit">CHECK</button>
+          </form>
+
+          <div class="tier-grid">
+            <div class="tier-card">
+              <div class="tier-name">Legendary</div>
+              <div>Top 1%</div>
+              <div>#1 - #100</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">Epic</div>
+              <div>Top 5%</div>
+              <div>#101 - #500</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">Rare</div>
+              <div>Top 15%</div>
+              <div>#501 - #1,500</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">Uncommon</div>
+              <div>Top 40%</div>
+              <div>#1,501 - #4,000</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">Common</div>
+              <div>Bottom 60%</div>
+              <div>#4,001 - #10,000</div>
+            </div>
+          </div>
+
+          <div class="rarity-result" data-rarity-result>
+            Enter a token ID to view traits and rarity score.
+          </div>
+
+          <div class="pill-row" style="margin-top: 1rem;">
+            <button class="filter-button" type="button" data-sample-id="0">#0</button>
+            <button class="filter-button" type="button" data-sample-id="42">#42</button>
+            <button class="filter-button" type="button" data-sample-id="1337">#1337</button>
+            <button class="filter-button" type="button" data-sample-id="6134">#6134</button>
+            <button class="filter-button" type="button" data-sample-id="9999">#9999</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Demo rarity scores are generated client-side and do not reflect on-chain metadata.
+    </footer>
+
+    <script src="../assets/app.js" defer></script>
+  </body>
+</html>

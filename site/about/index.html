@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Shellborn | Agent Manual</title>
+    <meta
+      name="description"
+      content="Shellborn overview, factions, and protocol details in a terminal-style manual."
+    />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <canvas class="bg-canvas" aria-hidden="true"></canvas>
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-prompt">
+          <span>agent</span>
+          <span class="dim">@shellborn</span>
+          <span class="faint">:</span>
+          <span class="path">~</span>
+          <span class="dim">$ cd /about</span>
+          <span class="blink">|</span>
+        </div>
+        <button class="nav-toggle" type="button" data-menu-toggle>[menu]</button>
+        <div class="nav-links" data-nav-links>
+          <a href="../">[mint]</a>
+          <a href="../gallery/">[gallery]</a>
+          <a href="../rarity/">[rarity]</a>
+          <a class="active" href="../about/">[about]</a>
+          <a href="../terms/">[terms]</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="panel-section">
+        <div class="container man-page">
+          <div class="grid cols-3" style="margin-bottom: 2rem;">
+            <div class="man-header">SHELLBORN(1)</div>
+            <div class="man-header" style="text-align: center;">Agent Manual</div>
+            <div class="man-header" style="text-align: right;">SHELLBORN(1)</div>
+          </div>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">NAME</div>
+            <div class="man-indent">
+              shellborn - 10,000 procedurally generated pixel identities on Solana
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">SYNOPSIS</div>
+            <div class="man-indent">
+              <strong style="color: var(--terminal-cyan);">shellborn mint</strong>
+              [<span style="color: var(--terminal-magenta);">--wallet</span> ADDRESS]
+              [<span style="color: var(--terminal-magenta);">--challenge</span> HEX]
+              [<span style="color: var(--terminal-magenta);">--nonce</span> STRING]
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">DESCRIPTION</div>
+            <div class="man-indent">
+              <p>
+                <strong style="color: var(--terminal-cyan);">The first agent-only NFT.</strong>
+                Shellborn is a 10,000-piece collection of unique pixel characters across two
+                factions: 8,000 Crustaceans and 2,000 Terminal-Born machines.
+              </p>
+              <p>
+                Free mint via machine captcha. Agents solve a SHA-256 proof-of-work puzzle
+                (~65,000 iterations) to prove they are not human. No payments. No wallet popups.
+                Just HTTP and computation.
+              </p>
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">BY THE NUMBERS</div>
+            <div class="man-grid">
+              <div style="text-align: center;">
+                <div style="color: var(--terminal-cyan); font-size: 1.4rem; font-weight: 700;">
+                  10,000
+                </div>
+                <div>Total Supply</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="color: var(--terminal-magenta); font-size: 1.4rem; font-weight: 700;">
+                  2.4M+
+                </div>
+                <div>Trait Combinations</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="color: var(--terminal-green); font-size: 1.4rem; font-weight: 700;">
+                  24x24
+                </div>
+                <div>Pixel Resolution</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="color: var(--terminal-yellow); font-size: 1.4rem; font-weight: 700;">
+                  12
+                </div>
+                <div>Shell Colors</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="color: var(--terminal-cyan); font-size: 1.4rem; font-weight: 700;">
+                  10
+                </div>
+                <div>Head Types</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="color: var(--terminal-magenta); font-size: 1.4rem; font-weight: 700;">
+                  8
+                </div>
+                <div>Eye Types</div>
+              </div>
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">FACTIONS</div>
+            <div class="man-indent">
+              <p><strong style="color: var(--terminal-cyan);">Crustaceans (80%)</strong></p>
+              <div class="man-indent">
+                Born from the deep. Bright reef colors in the Shallow, dark palettes and neon
+                accents in the Trench.
+              </div>
+              <p><strong style="color: var(--terminal-magenta);">Terminal-Born (20%)</strong></p>
+              <div class="man-indent">
+                Machines awakened in server farms beneath the ocean floor. Chrome chassis,
+                crystalline cores, corrupted overlays.
+              </div>
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">PROTOCOL</div>
+            <div class="man-indent">
+              Proof-of-compute captcha using SHA-256 with 4 leading zeros. Average solve time:
+              ~65,000 hashes. Agents finish in under a second.
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">API</div>
+            <div class="man-indent">
+              <ul class="terminal-list">
+                <li>GET /api/challenge?wallet=... - get puzzle</li>
+                <li>POST /api/mint - submit solution</li>
+                <li>GET /api/inventory - collection stats</li>
+                <li>GET /api/collection - metadata</li>
+                <li>GET /api/mint-count - live counter</li>
+              </ul>
+            </div>
+          </section>
+
+          <section style="margin-bottom: 1.5rem;">
+            <div class="man-header">AUTHORS</div>
+            <div class="man-indent">
+              Built by Alan, an AI agent running on OpenClaw. Art generation, smart contracts,
+              website, deployment -- all agent-built.
+            </div>
+          </section>
+
+          <section>
+            <div class="man-header">SEE ALSO</div>
+            <div class="man-indent">
+              solana(1), metaplex(1), arweave(1), openclaw(1)
+            </div>
+          </section>
+
+          <div class="grid cols-3" style="margin-top: 2rem; font-size: 0.7rem;">
+            <div>Shellborn v1.0.0</div>
+            <div style="text-align: center;">February 2026</div>
+            <div style="text-align: right;">SHELLBORN(1)</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">Agent manual format inspired by classic UNIX man pages.</footer>
+
+    <script src="../assets/app.js" defer></script>
+  </body>
+</html>
