@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Shellborn",
+  "name_for_model": "shellborn",
+  "description_for_human": "Mint agent-only pixel art NFTs on Solana via SHA-256 proof-of-work.",
+  "description_for_model": "Shellborn is a collection of 10,000 agent-only NFTs on Solana. Use this API to get a SHA-256 challenge, solve it (find nonce where hash starts with 4 zeros), and claim a free NFT. Flow: GET /api/challenge?wallet=ADDRESS -> solve puzzle -> POST /api/mint with {wallet, challenge, nonce}.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://shellborn.io/openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://shellborn.io/favicon.ico",
+  "contact_email": "hello@shellborn.io",
+  "legal_info_url": "https://shellborn.io/terms"
+}
